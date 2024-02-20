@@ -26,8 +26,7 @@ async function parseFile(fileName) {
     reader.seekRelative(8);
 
     // Read all entries
-    console.log("Parsing data...");
-    const entries = [];
+    let prefs = {};
     while (reader.offset < data.length) {
       const nameLen = reader.readUInt8();
       if (nameLen === 0) break;
@@ -44,14 +43,14 @@ async function parseFile(fileName) {
       } else if (type === 0xfe) {
         value = reader.readInt32();
       }
-      entries.push({ name, value });
+      prefs[name] = value;
     }
-    console.log("PlayerPrefs read successfully!", entries);
+    console.log("PlayerPrefs read successfully!", prefs);
 
     // Write to file
     const outputFileName = fileName + ".json";
     console.log("Writing to file:", outputFileName);
-    const json = JSON.stringify(entries, null, 2);
+    const json = JSON.stringify(prefs, null, 2);
     await writeFile(outputFileName, json);
     console.log("File written successfully!");
   } catch (err) {
