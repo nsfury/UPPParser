@@ -27,16 +27,6 @@ export class BinaryReader {
     return this.buffer.readUInt8(offset);
   }
 
-  readUInt16LE() {
-    const offset = this.checkOffsetAndMove(2);
-    return this.buffer.readUInt16LE(offset);
-  }
-
-  readUInt32BE() {
-    const offset = this.checkOffsetAndMove(4);
-    return this.buffer.readUInt32BE(offset);
-  }
-
   readFloat() {
     const offset = this.checkOffsetAndMove(4);
     return this.buffer.readFloatLE(offset);
